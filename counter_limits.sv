@@ -45,7 +45,7 @@ endfunction
 
 function void next();
 if (count >= max) begin
-count = min;  // Wrap to min if count exceeds max
+count = min;
 end else begin
 count = count+1;
 end
