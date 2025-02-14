@@ -36,40 +36,30 @@ endfunction
 endclass
 
 
-
-
-
 class upcounter extends counter;
-  // Roll-over  
-  bit carry;
-  
-  // Static property 
-  static int instance_count = 0;
+bit carry;
+static int instance_count = 0;
 
 function new(input bit [7:0] temp = 8'h07, input int limit1 = 8'h99, input int limit2 = 0);
 
-    super.new(temp, limit1, limit2);
-    carry = 0;
-    instance_count++;
+super.new(temp, limit1, limit2);
+carry = 0;
+instance_count++;
 endfunction
   
-  //instance count
-  static function int get_inst_count();
-    return instance_count;
-  endfunction
+static function int get_inst_count();
+return instance_count;
+endfunction
 
 function void next();
-  
-        if (count >= max) begin
-            carry =1;
-            count = min;  // Wrap to min if count exceeds max
-          
-        end else begin
-          carry =1
-    count = count+1;
-    end
-    $display("Count Value: %d", this.getcount());
-        
+if (count >= max) begin
+carry =1;
+count = min;  
+end else begin
+carry =1
+count = count+1;
+end
+$display("Count Value: %d", this.getcount()); 
 endfunction
 
 endclass
@@ -89,7 +79,6 @@ endfunction
 static function int get_inst_count();
 return instance_count;
 endfunction
-
   
 function void next();
 if (count > min) begin
