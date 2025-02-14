@@ -65,7 +65,7 @@ endfunction
 function void next();
 if (count >= max) begin
 carry =1;
-count = min;  // Wrap to min if count exceeds max
+count = min;  
 end else begin
 carry =1
 count = count+1;
