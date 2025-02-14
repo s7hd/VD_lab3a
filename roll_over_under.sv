@@ -54,21 +54,35 @@ endfunction
 
 endclass
 
-class downcounter extends counter;
 
-function new(input bit [7:0] temp = 8'h07, input int limit1 = 0, input int limit2 = 8'h99);
+class upcounter extends counter;
+ bit carry;
+function new(input bit [7:0] temp = 8'h07, input int limit1 = 8'h99, input int limit2 = 0);
 super.new(temp, limit1, limit2);
+carry = 0;
 endfunction
 
 function void next();
-if (count > min) begin
-count = count-1;
+if (count >= max) begin
+carry =1;
+count = min;  // Wrap to min if count exceeds max
 end else begin
-count = max;
+carry =1
+count = count+1;
 end
 $display("Count Value: %d", this.getcount());
-endfunction
+  endfunction
 
+endclass
+
+
+
+class downcounter extends counter;
+bit borrow =0;
+function new(input bit [7:0] temp = 8'h07, input int limit1 = 0, input int limit2 = 8'h99);
+super.new(temp, limit1, limit2);
+borrow = 0;
+endfunction
 function void next();
 if (count > min) begin
 borrow =0;
@@ -78,6 +92,7 @@ borrow =1;
 count = max;
 end
 $display("Count Value: %d", this.getcount());
+
 endfunction
-  
+
 endclass
